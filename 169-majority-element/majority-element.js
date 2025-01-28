@@ -4,32 +4,16 @@
  */
 var majorityElement = function(nums) {
 
-    if(nums.length === 1) return nums[0]
-      
-    let k = 0;
-    let temp = 0;
-    let number = 0;
+    let candidate = null;
+    let count = 0;
 
-    nums.sort((a, b) => a - b);
-
-    for (let i = 0; i < nums.length; i++) {
-        
-        
-        if (nums[i + 1] === nums[i]) {
-            temp++;
-            
-        } else {
-            if (temp > k) {
-                k = temp;
-                number = nums[i]
-            }
-            temp = 0;
+    // Первый проход по массиву для нахождения кандидата
+    for (let num of nums) {
+        if (count === 0) {
+            candidate = num;  // Устанавливаем нового кандидата
         }
-
-        
+        count += (num === candidate) ? 1 : -1;
     }
 
-    
-
-    return number
+    return candidate;
 };
