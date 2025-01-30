@@ -3,29 +3,14 @@
  * @return {string}
  */
 var longestCommonPrefix = function(strs) {
-    let prefix = "";
-    let maxLength = 0;
+    if (!strs.length) return "";
 
-    if (strs.includes("")) {
-        return prefix;
-    }
+    let prefix = strs[0]; // Начинаем с первого слова
 
-    for (let i = 0; i < strs.length; i++) {     
-        if (strs[i].length > maxLength) {
-          maxLength = strs[i].length
-        }
-    }
-
-    for (let i = 0; i < maxLength; i++) {     
-        for (let j = 0; j < strs.length; j++) {
-          
-            if (strs[j + 1] && (strs[j + 1][i] !== strs[j][i])) {
-                return prefix;
-            } 
-
-            if (j === strs.length - 1) {
-                prefix += strs[j][i]
-            }
+    for (let i = 1; i < strs.length; i++) {
+        while (strs[i].indexOf(prefix) !== 0) { 
+            prefix = prefix.slice(0, -1); // Убираем последний символ
+            if (!prefix) return ""; // Если обрезали до пустой строки
         }
     }
 
