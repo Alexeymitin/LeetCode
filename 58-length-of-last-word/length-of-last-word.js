@@ -3,14 +3,16 @@
  * @return {number}
  */
 var lengthOfLastWord = function(s) {
-    let arr = s.split(" ");
-    let lastWord = ""
+    let length = 0;
     
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i]) {
-            lastWord = arr[i];
+    for (let i = s.length - 1; i >= 0; i--) {
+        if (s[i] !== ' ') {  // Если нашли букву, увеличиваем счётчик длины
+            length++;
+        } else if (length > 0) {  
+            // Если встретили пробел ПОСЛЕ слова — значит, слово закончилось
+            break;
         }
     }
 
-    return lastWord.length;
+    return length;
 };
