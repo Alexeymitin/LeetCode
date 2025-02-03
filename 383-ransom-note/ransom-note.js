@@ -14,10 +14,7 @@ var canConstruct = function(ransomNote, magazine) {
     }
   }
 
-  console.log(magazineMap);
-
   for (let i = 0; i < ransomNote.length; i++) {
-    console.log(magazineMap);
     if (!magazineMap.has(ransomNote[i])) return false;
 
     magazineMap.set(ransomNote[i], magazineMap.get(ransomNote[i]) - 1);
