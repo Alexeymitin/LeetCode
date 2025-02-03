@@ -4,25 +4,20 @@
  * @return {boolean}
  */
 var canConstruct = function(ransomNote, magazine) {
-  const magazineMap = new Map();
+const letterCount = {};
 
-  for (let i = 0; i < magazine.length; i++) {
-    if (!magazineMap.has(magazine[i])) {
-      magazineMap.set(magazine[i], 1);
-    } else {
-      magazineMap.set(magazine[i], magazineMap.get(magazine[i]) + 1);
+    // Подсчитаем количество каждого символа в строке magazine
+    for (let letter of magazine) {
+        letterCount[letter] = (letterCount[letter] || 0) + 1;
     }
-  }
 
-  for (let i = 0; i < ransomNote.length; i++) {
-    if (!magazineMap.has(ransomNote[i])) return false;
-
-    magazineMap.set(ransomNote[i], magazineMap.get(ransomNote[i]) - 1);
-
-    if (magazineMap.get(ransomNote[i]) === 0) {
-      magazineMap.delete(ransomNote[i]);
+    // Проверим, можем ли мы составить ransomNote из символов magazine
+    for (let letter of ransomNote) {
+        if (!letterCount[letter]) {
+            return false;  // Если символ в ransomNote больше не доступен в magazine, вернем false
+        }
+        letterCount[letter] -= 1;  // Используем один символ из magazine
     }
-  }
 
-  return true;
+    return true;  // Все символы ransomNote были найдены в magazine
 };
