@@ -3,28 +3,19 @@
  * @return {string[]}
  */
 var summaryRanges = function(nums) {
-    let start = nums[0];
-    let end = nums[0];
-    let intervals =[];
-    let intervalsStrings = []
+    let result = [];
+    let start = 0;
 
     for (let i = 1; i <= nums.length; i++) {
-        if (nums[i] - end === 1) {
-            end = nums[i];
-        } else {
-            intervals.push([start, end]);
-            start = nums[i];
-            end = nums[i]
+        if (i === nums.length || nums[i] !== nums[i - 1] + 1) {
+            if (start === i - 1) {
+                result.push(`${nums[start]}`);
+            } else {
+                result.push(`${nums[start]}->${nums[i - 1]}`);
+            }
+            start = i;
         }
     }
 
-    intervals.forEach((interval) => {
-         if(interval[0] === interval[1]) {
-            intervalsStrings.push(`${interval[1]}`);
-       } else {
-            intervalsStrings.push(`${interval[0]}->${interval[1]}`);
-       }
-    })
-
-    return intervalsStrings;
+    return result;
 };
