@@ -26,13 +26,5 @@ var summaryRanges = function(nums) {
        }
     })
 
-    // for (let i = 0; i < nums.length; i++) {
-    //    if(intervals[i][0] === intervals[i][1]) {
-    //         intervalsStrings.push(`${intervals[i][1]}`);
-    //    } else {
-    //         intervalsStrings.push(`${intervals[i][0]}->${intervals[i][1]}`);
-    //    }
-    // }
-
     return intervalsStrings;
 };
