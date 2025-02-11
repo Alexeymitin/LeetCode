@@ -3,26 +3,35 @@
  * @param {string} s
  * @return {boolean}
  */
-var wordPattern = function (pattern, s) {
-  const objPatterns = new Map();
-  const objS = new Map();
-  const arrS = s.split(" ");
+function wordPattern(pattern, s) {
+  const words = s.split(' '); // разбиваем строку на слова
+  if (pattern.length !== words.length) return false; // если длины не совпадают, сразу false
 
-  if (pattern.length !== arrS.length) return false;
+  const patternToWord = new Map(); // Map для связи буквы -> слово
+  const wordToPattern = new Map(); // Map для связи слово -> буква
 
   for (let i = 0; i < pattern.length; i++) {
-    const p = pattern[i];
-    const word = arrS[i];
+    const char = pattern[i];
+    const word = words[i];
 
-    if (!objPatterns.has(p) && !objS.has(word)) {
-      objPatterns.set(p, word);
-      objS.set(word, p);
-    } else {
-      if (objPatterns.get(p) !== word || objS.get(word) !== p) {
-        return false;
+    // Проверяем связь с Map для паттерна
+    if (patternToWord.has(char)) {
+      if (patternToWord.get(char) !== word) {
+        return false; // если буква уже сопоставлена с другим словом
       }
+    } else {
+      patternToWord.set(char, word); // устанавливаем связь
+    }
+
+    // Проверяем связь с Map для слов
+    if (wordToPattern.has(word)) {
+      if (wordToPattern.get(word) !== char) {
+        return false; // если слово уже сопоставлено с другой буквой
+      }
+    } else {
+      wordToPattern.set(word, char); // устанавливаем связь
     }
   }
 
   return true;
-};
+}
