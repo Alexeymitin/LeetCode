@@ -4,27 +4,14 @@
  * @return {boolean}
  */
 var containsNearbyDuplicate = function(nums, k) {
-  const duplicateIndexs = new Map();
+    const indexMap = new Map(); // Храним последнее вхождение каждого числа
 
-  for (let i = 0; i < nums.length; i++) {
-    if (duplicateIndexs.has(nums[i])) {
-      const indices = duplicateIndexs.get(nums[i]);
-      indices.push(i);
-      duplicateIndexs.set(nums[i], indices);
-
-      if (duplicateIndexs.get(nums[i]).length > 1) {
-        const indices = duplicateIndexs.get(nums[i]);
-
-        for (let j = 0; j < indices.length - 1; j++) {
-          if (Math.abs(indices[j] - indices[j + 1]) <= k) {
-            return true;
-          }
+    for (let i = 0; i < nums.length; i++) {
+        if (indexMap.has(nums[i]) && i - indexMap.get(nums[i]) <= k) {
+            return true; // Если условие выполняется, сразу возвращаем true
         }
-      }
-    } else {
-      duplicateIndexs.set(nums[i], [i]);
+        indexMap.set(nums[i], i); // Обновляем индекс последнего вхождения
     }
-  }
 
-  return false;
+    return false; // Если ни разу не вернули true, значит, дубликатов в пределах k нет
 };
