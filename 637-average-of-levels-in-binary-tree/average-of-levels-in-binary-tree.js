@@ -21,7 +21,7 @@ var averageOfLevels = function(root) {
 
     while (queue.length > 0) {
         const [node, level] = queue.shift();
-       // Math.floor((num / 2)* 100000) / 100000
+
         if (level === maxLevel) {
             sum += node.val;
             countOfNode++
