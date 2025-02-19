@@ -13,25 +13,30 @@
 var averageOfLevels = function(root) {
     if (!root) return [];
 
-    const queue = [root];  // Начинаем с корня дерева
-    const result = [];
+    const queue = [[root, 0]];
+    const answer = [];
+    let maxLevel = 0;
+    let sum = 0;
+    let countOfNode = 0
 
     while (queue.length > 0) {
-        let levelSum = 0;  // Сумма значений узлов на текущем уровне
-        let levelCount = queue.length;  // Количество узлов на текущем уровне
-
-        for (let i = 0; i < levelCount; i++) {
-            const node = queue.shift();  // Извлекаем узел из очереди
-            levelSum += node.val;  // Добавляем значение узла к сумме
-
-            // Добавляем детей в очередь для следующего уровня
-            if (node.left) queue.push(node.left);
-            if (node.right) queue.push(node.right);
+        const [node, level] = queue.shift();
+       // Math.floor((num / 2)* 100000) / 100000
+        if (level === maxLevel) {
+            sum += node.val;
+            countOfNode++
+        } else {
+            answer.push(sum / countOfNode);
+            sum = node.val;
+            countOfNode = 1;
+            maxLevel++
         }
 
-        // Добавляем среднее значение уровня в результат
-        result.push(levelSum / levelCount);
+        if (node.left) queue.push([node.left, level + 1]);
+        if (node.right) queue.push([node.right, level + 1]);
     }
 
-    return result;
+    answer.push(sum / countOfNode);
+
+    return answer;
 };
