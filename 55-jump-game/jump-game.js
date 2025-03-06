@@ -3,13 +3,14 @@
  * @return {boolean}
  */
 var canJump = function(nums) {
-   let maxReach = 0; // Максимально достижимый индекс
+    let left = 0;       // Текущий индекс (указатель)
+    let farthest = 0;   // Самая дальняя достижимая позиция
 
-    for (let i = 0; i < nums.length; i++) {
-        if (i > maxReach) return false; // Если текущий индекс недостижим, то false
-        maxReach = Math.max(maxReach, i + nums[i]); // Обновляем максимальный охват
-        if (maxReach >= nums.length - 1) return true; // Достигли конца массива
+    while (left <= farthest) {
+        farthest = Math.max(farthest, left + nums[left]); // Обновляем дальность
+        if (farthest >= nums.length - 1) return true; // Дошли до конца?
+        left++; // Двигаем указатель вправо
     }
 
-    return false;
+    return false; // Если вышли из цикла, значит застряли
 };
